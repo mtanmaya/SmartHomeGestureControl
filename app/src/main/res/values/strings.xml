@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">SmartHome Gesture Control</string>
+
+    <string name="gestures_prompt">Choose a gesture</string>
+
+    <string-array name="gestures_arrays">
+        <item>select a gesture</item>
+        <item>Turn on lights</item>
+        <item>Turn off lights</item>
+        <item>Turn on fan</item>
+        <item>Turn off fan</item>
+        <item>Increase fan speed</item>
+        <item>decrease fan speed</item>
+        <item>Set Thermostat to specified temperature</item>
+    </string-array>
+
+    <string name="video_button">Video Record Button</string>
+    <string name="camera_button">Camera Capture Button</string>
+</resources>
