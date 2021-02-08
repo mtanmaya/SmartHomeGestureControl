@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.URLUtil;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -19,8 +21,6 @@ public class PracticeActivity extends AppCompatActivity {
 
     private static final String VIDEO_SAMPLE = "";
     private VideoView mVideoView;
-    private TextView mBufferingTextView;
-
     private Button button;
 
     @Override
@@ -35,8 +35,6 @@ public class PracticeActivity extends AppCompatActivity {
                 goToVideoRecordingScreen();
             }
         });
-
-        mBufferingTextView = findViewById(R.id.buffering_textview); // get a reference to the TextView in the layout
 
         mVideoView = (VideoView) findViewById(R.id.videoView); // get a reference to the VideoView in the layout
 
@@ -63,10 +61,10 @@ public class PracticeActivity extends AppCompatActivity {
 
         switch (optionSelected.toString()) {
             case "1":
-                mediaName = "https://d18ky98rnyall9.cloudfront.net/8tD_kauISI6Q_5GriPiO_A.processed/full/360p/index.mp4?Expires=1612742400&Signature=OqXagPm4kGbSDzEgKqYR4DM1yRZPm3cnbfiaeh68yzWxY5giYX~BVyU-jWs6zuIB22~7uUZLzCT07EpS255~IOVTM3MiJacH0Ne5HBDx3qlxJtu3EQr1rwnnf2iPygFeC00ED1d4V3Mv5beHPi94sQAAc4Ui8zoFFBK43~lZGHc_&Key-Pair-Id=APKAJLTNE6QMUY6HBC5A";
+                mediaName = "hlightoff";
                 break;
             case "2":
-                mediaName = "https://d18ky98rnyall9.cloudfront.net/P22OQRsxTh2tjkEbMX4dZQ.processed/full/360p/index.mp4?Expires=1612742400&Signature=kvBqzMsC-KF9Ofs5242r4o1oXElGVveMnOgkKcYHtT-M~lFBKEWqdk330bQf9uckFUfe4uQU9xVxAW5bhoB6AEDFig5f3wuxb3Fm-E5UjsXabPqijq~mvYrXVS~u6-Rv5rrbvXKYxBAoLjqconirry39cV9M6oaqkzTZILCSrK8_&Key-Pair-Id=APKAJLTNE6QMUY6HBC5A";
+                mediaName = "hlighton";
                 break;
             case "3":
                 mediaName = "";
@@ -97,9 +95,11 @@ public class PracticeActivity extends AppCompatActivity {
         Log.i("medianame", "media name: " + mediaName);
 
         if (URLUtil.isValidUrl(mediaName)) {
+            Log.i("", "media is an external URL");
             // media name is an external URL
             return Uri.parse(mediaName);
         } else { // media name is a raw resource embedded in the app
+            Log.i("", "media is a raw resource embedded in the app");
             return Uri.parse("android.resource://" + getPackageName() +
                     "/raw/" + mediaName);
         }
@@ -107,16 +107,16 @@ public class PracticeActivity extends AppCompatActivity {
 
     private void initializePlayer(Uri videoUri) {
 
-        // Show the "Buffering..." message while the video loads.
-        mBufferingTextView.setVisibility(VideoView.VISIBLE);
-
         mVideoView.setVideoURI(videoUri);
+//        mVideoView.setLayoutParams(new FrameLayout.LayoutParams(550,550));
+//
+//        LinearLayout linearLayout = (LinearLayout)findViewById(R.id.info);
+//        linearLayout.addView(mVideoView);
 
         mVideoView.setOnPreparedListener(
                 new MediaPlayer.OnPreparedListener() {
                     @Override
                     public void onPrepared(MediaPlayer mediaPlayer) {
-                        mBufferingTextView.setVisibility(VideoView.INVISIBLE);
 
                         mVideoView.seekTo(0);
 //                        if (mCurrentPosition > 0) {
